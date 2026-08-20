@@ -119,7 +119,7 @@ shareBtn.onclick = async () => {
       video: {
         width: { ideal: 1920, max: 1920 },
         height: { ideal: 1080, max: 1080 },
-        frameRate: { ideal: 60, max: 60 }
+        frameRate: { ideal: 60, max: 90 }
       },
       audio: true // постав true, якщо треба захоплювати системний звук (підтримка залежить від браузера/ОС)
     });
@@ -134,13 +134,22 @@ shareBtn.onclick = async () => {
 
     // Задаємо бітрейт вручну — за замовчуванням браузер часто занижує його,
     // що при 1080p60 виглядає розмито. ~6-8 Мбіт/с — орієнтир для VP8/VP9.
-    const sender = pc.getSenders().find(s => s.track && s.track.kind === 'video');
-    if (sender) {
-      const params = sender.getParameters();
-      if (!params.encodings) params.encodings = [{}];
-      params.encodings[0].maxBitrate = 8_000_000;
-      await sender.setParameters(params);
+    const sender = pc.getSenders().find(
+    s => s.track && s.track.kind === 'video'
+);
+
+if (sender) {
+    const params = sender.getParameters();
+
+    if (!params.encodings) {
+        params.encodings = [{}];
     }
+
+    params.encodings[0].maxFramerate = 90;
+    params.encodings[0].maxBitrate = 30_000_000;
+
+    await sender.setParameters(params);
+}
 
     if (isInitiator) {
       const offer = await pc.createOffer();
