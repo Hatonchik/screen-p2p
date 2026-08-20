@@ -1,0 +1,13 @@
+{
+  "name": "screen-p2p",
+  "version": "1.0.0",
+  "description": "P2P трансляція екрана (WebRTC) з сигнальним сервером на Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0",
+    "express": "^4.19.2"
+  }
+}
