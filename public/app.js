@@ -121,7 +121,7 @@ shareBtn.onclick = async () => {
         height: { ideal: 1080, max: 1080 },
         frameRate: { ideal: 60, max: 60 }
       },
-      audio: false // постав true, якщо треба захоплювати системний звук (підтримка залежить від браузера/ОС)
+      audio: true // постав true, якщо треба захоплювати системний звук (підтримка залежить від браузера/ОС)
     });
 
     localVideo.srcObject = localStream;
